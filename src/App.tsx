@@ -190,10 +190,22 @@ export default function App() {
           }),
         });
 
-        const data = await response.json();
+        let data: any = null;
+        try {
+          const rawText = await response.text();
+          data = JSON.parse(rawText);
+        } catch {
+          if (!response.ok) {
+            if (response.status === 404) {
+              throw new Error('API route /api/recognize-cedi not found. On Vercel, ensure GEMINI_API_KEY is set in Environment Variables.');
+            }
+            throw new Error(`Server returned HTTP ${response.status} error.`);
+          }
+          throw new Error('Server returned an invalid response format.');
+        }
 
-        if (!response.ok || !data.success) {
-          throw new Error(data.error || 'Server recognition failed');
+        if (!response.ok || !data || !data.success) {
+          throw new Error(data?.error || `Recognition failed (${response.status})`);
         }
 
         const resultData = data.data;
