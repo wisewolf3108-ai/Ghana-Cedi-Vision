@@ -1,0 +1,6 @@
+{
+  "name": "Ghana Cedi Vision - Banknote Reader",
+  "description": "Accessible Ghana Cedi banknote denomination recognition using Gemini Vision and Web Speech for visually impaired users (GFD Accra).",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
